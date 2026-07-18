@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Express Simulator | Official Landing Page</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            emerald: '#10b981',
+                            gold: '#f59e0b',
+                            darkbg: '#0a0a0c',
+                            cardbg: '#121216',
+                            accent: '#3b82f6'
+                        }
+                    },
+                    boxShadow: {
+                        'glow-emerald': '0 0 20px rgba(16, 185, 129, 0.4)',
+                        'glow-gold': '0 0 25px rgba(245, 158, 11, 0.3)',
+                        'glow-blue': '0 0 20px rgba(59, 130, 246, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0a0a0c;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0c; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #10b981; }
+        
+        .premium-border {
+            position: relative;
+        }
+        .premium-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(to bottom right, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .premium-border:hover::before {
+            background: linear-gradient(to bottom right, #10b981, rgba(59, 130, 246, 0.3));
+        }
+        .lang-transition {
+            transition: opacity 0.2s ease-in-out;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-emerald-500 selection:text-black">
+
+    <!-- Header -->
+    <header class="fixed top-0 w-full z-50 bg-brand-darkbg/80 backdrop-blur-md border-b border-white/5 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 bg-emerald-500 rounded flex items-center justify-center text-black font-extrabold shadow-glow-emerald animate-pulse">B</div>
+            <span class="font-extrabold tracking-wider text-lg uppercase bg-gradient-to-r from-white via-zinc-200 to-zinc-500 bg-clip-text text-transparent">Book Express</span>
+        </div>
+        <nav class="hidden md:flex space-x-8 text-sm font-medium tracking-wide text-zinc-400">
+            <a href="#hero" data-i18n="nav_home" class="hover:text-emerald-400 transition">Home</a>
+            <a href="#trailer" data-i18n="nav_trailer" class="hover:text-emerald-400 transition">Trailer</a>
+            <a href="#gallery" data-i18n="nav_screenshots" class="hover:text-emerald-400 transition">Screenshots</a>
+            <a href="#download" data-i18n="nav_download" class="hover:text-emerald-400 transition">Download</a>
+            <a href="#roadmap" data-i18n="nav_roadmap" class="hover:text-emerald-400 transition">Roadmap</a>
+        </nav>
+        
+        <!-- Language Dynamic Selector -->
+        <div class="relative inline-block text-left text-xs text-zinc-400 font-semibold tracking-wide">
+            <select id="langSelector" class="bg-zinc-900 border border-zinc-800 rounded px-3 py-1.5 focus:outline-none focus:border-emerald-500 cursor-pointer text-white">
+                <option value="en">ENGLISH</option>
+                <option value="uz">O'ZBEKCHA</option>
+                <option value="ru">РУССКИЙ</option>
+            </select>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative min-h-screen flex flex-col justify-center items-center text-center px-4 pt-24 overflow-hidden">
+        <div class="absolute w-[500px] h-[500px] bg-emerald-500/10 blur-[120px] rounded-full top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+        
+        <div class="max-w-4xl mx-auto z-10 space-y-6 lang-transition" id="hero-content">
+            <div class="inline-flex items-center space-x-2 bg-zinc-900/80 border border-zinc-800 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-emerald-400 mb-4 shadow-inner">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                <span data-i18n="status_active">Active Development</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-8xl font-black tracking-tight uppercase leading-none">
+                Book Express<br>
+                <span class="bg-gradient-to-r from-emerald-400 via-teal-200 to-blue-500 bg-clip-text text-transparent">Simulator</span>
+            </h1>
+            
+            <p data-i18n="hero_desc" class="text-zinc-400 max-w-xl mx-auto text-base md:text-lg font-light leading-relaxed">
+                Step into the boots of a professional open-world courier. Manage complex delivery networks, deploy advanced navigation systems, and conquer the streets.
+            </p>
+
+            <!-- Buttons Grid -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
+                <a href="#download" class="w-full sm:w-auto px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-bold rounded-lg shadow-glow-emerald transition duration-300 transform hover:-translate-y-0.5 flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-desktop"></i>
+                    <span data-i18n="btn_download">Download Prototype</span>
+                </a>
+                
+                <button onclick="openTrailerModal()" class="w-full sm:w-auto px-8 py-4 bg-zinc-900 hover:bg-zinc-800 text-white font-bold rounded-lg border border-zinc-800 hover:border-zinc-700 transition duration-300 transform hover:-translate-y-0.5 flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-film"></i>
+                    <span data-i18n="btn_trailer">Watch Trailer</span>
+                </button>
+
+                <div class="relative group w-full sm:w-auto cursor-not-allowed">
+                    <button disabled class="w-full sm:w-auto px-8 py-4 bg-zinc-950/60 text-zinc-500 font-bold rounded-lg border border-zinc-900 flex items-center justify-center space-x-2 opacity-70">
+                        <i class="fa-brands fa-steam"></i>
+                        <span data-i18n="btn_steam">Coming Soon on Steam</span>
+                    </button>
+                    <span data-i18n="badge_tba" class="absolute -top-3 -right-2 bg-gradient-to-r from-amber-500 to-orange-600 text-[10px] text-black font-black uppercase tracking-wider px-2 py-0.5 rounded shadow-glow-gold animate-bounce">
+                        Page TBA
+                    </span>
+                </div>
+            </div>
+
+            <!-- Status Dashboard -->
+            <div class="pt-12 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto text-sm">
+                <div class="bg-zinc-900/40 backdrop-blur border border-zinc-800/60 rounded-xl p-4 flex flex-col items-center justify-center space-y-1">
+                    <span data-i18n="dash_status" class="text-zinc-500 uppercase tracking-widest text-[10px] font-bold">Current Status</span>
+                    <div class="flex items-center space-x-2 font-semibold text-emerald-400">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        <span data-i18n="status_active">Active Development</span>
+                    </div>
+                </div>
+                <div class="bg-zinc-900/40 backdrop-blur border border-zinc-800/60 rounded-xl p-4 flex flex-col items-center justify-center space-y-1">
+                    <span data-i18n="dash_avail" class="text-zinc-500 uppercase tracking-widest text-[10px] font-bold">Build Availability</span>
+                    <div class="font-semibold text-white flex items-center space-x-1.5">
+                        <i class="fa-solid fa-circle-check text-blue-400"></i>
+                        <span data-i18n="dash_avail_val">Prototype Available</span>
+                    </div>
+                </div>
+                <div class="bg-zinc-900/40 backdrop-blur border border-zinc-800/60 rounded-xl p-4 flex flex-col items-center justify-center space-y-1">
+                    <span data-i18n="dash_market" class="text-zinc-500 uppercase tracking-widest text-[10px] font-bold">Marketplace</span>
+                    <div class="font-semibold text-amber-500 flex items-center space-x-1.5">
+                        <i class="fa-solid fa-hourglass-half animate-spin text-xs"></i>
+                        <span data-i18n="dash_market_val">Steam — Coming Soon</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRAILER SECTION -->
+    <section id="trailer" class="py-24 px-4 bg-zinc-950/40 border-t border-b border-white/5 relative">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 data-i18n="trailer_sub" class="text-xs uppercase tracking-widest font-bold text-emerald-400 mb-2">Cinematic Preview</h2>
+                <h3 data-i18n="trailer_title" class="text-3xl md:text-5xl font-black uppercase">Watch the Trailer</h3>
+            </div>
+            <div class="relative aspect-video rounded-2xl overflow-hidden shadow-glow-blue group cursor-pointer border border-zinc-800" onclick="openTrailerModal()">
+                <div class="absolute inset-0 bg-cover bg-center transition-transform duration-750 group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200'); filter: brightness(0.4) contrast(1.1);"></div>
+                <div class="absolute inset-0 flex flex-col items-center justify-center space-y-4">
+                    <div class="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center text-black text-2xl pl-1 shadow-glow-emerald transform transition duration-500 group-hover:scale-110 group-hover:bg-emerald-400">
+                        <i class="fa-solid fa-play"></i>
+                    </div>
+                    <span data-i18n="trailer_btn_play" class="text-sm uppercase font-black tracking-widest text-white/70 group-hover:text-white transition">Launch Trailer Presentation</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCREENSHOT GALLERY -->
+    <section id="gallery" class="py-24 px-4 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 data-i18n="gallery_sub" class="text-xs uppercase tracking-widest font-bold text-emerald-400 mb-2">Visual Showcase</h2>
+            <h3 data-i18n="gallery_title" class="text-3xl md:text-5xl font-black uppercase">In-Game Captions & Atmosphere</h3>
+        </div>
+
+        <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6" id="gallery-grid">
+            <!-- Items populated with data attributes for multilang support -->
+            <div class="break-inside-avoid relative overflow-hidden rounded-xl bg-zinc-900 border border-zinc-800/60 premium-border group cursor-pointer" onclick="openGalleryModal(0)">
+                <img src="https://images.unsplash.com/photo-1614624532983-4ce03382d63d?q=80&w=800" alt="Screenshot 1" class="w-full h-auto object-cover transform transition duration-500 group-hover:scale-105 opacity-80 group-hover:opacity-100" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold font-mono">Screenshot 01</span>
+                        <h4 data-i18n="shot_01" class="text-sm font-bold text-white mt-1">Advanced Route Planning Tablet Interface</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="break-inside-avoid relative overflow-hidden rounded-xl bg-zinc-900 border border-zinc-800/60 premium-border group cursor-pointer" onclick="openGalleryModal(1)">
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800" alt="Screenshot 2" class="w-full h-auto object-cover transform transition duration-500 group-hover:scale-105 opacity-80 group-hover:opacity-100" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold font-mono">Screenshot 02</span>
+                        <h4 data-i18n="shot_02" class="text-sm font-bold text-white mt-1">Smart GPS Navigation HUD System</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="break-inside-avoid relative overflow-hidden rounded-xl bg-zinc-900 border border-zinc-800/60 premium-border group cursor-pointer" onclick="openGalleryModal(2)">
+                <img src="https://images.unsplash.com/photo-1553481187-be93c21490a9?q=80&w=800" alt="Screenshot 3" class="w-full h-auto object-cover transform transition duration-500 group-hover:scale-105 opacity-80 group-hover:opacity-100" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold font-mono">Screenshot 03</span>
+                        <h4 data-i18n="shot_03" class="text-sm font-bold text-white mt-1">High-Stakes Express Delivery Mechanics</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="break-inside-avoid relative overflow-hidden rounded-xl bg-zinc-900 border border-zinc-800/60 premium-border group cursor-pointer" onclick="openGalleryModal(3)">
+                <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800" alt="Screenshot 4" class="w-full h-auto object-cover transform transition duration-500 group-hover:scale-105 opacity-80 group-hover:opacity-100" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold font-mono">Screenshot 04</span>
+                        <h4 data-i18n="shot_04" class="text-sm font-bold text-white mt-1">Custom Fleet Configuration Screen</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="break-inside-avoid relative overflow-hidden rounded-xl bg-zinc-900 border border-zinc-800/60 premium-border group cursor-pointer" onclick="openGalleryModal(4)">
+                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800" alt="Screenshot 5" class="w-full h-auto object-cover transform transition duration-500 group-hover:scale-105 opacity-80 group-hover:opacity-100" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold font-mono">Screenshot 05</span>
+                        <h4 data-i18n="shot_05" class="text-sm font-bold text-white mt-1">Open World City Infrastructure v0.1</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="break-inside-avoid relative overflow-hidden rounded-xl bg-zinc-900 border border-zinc-800/60 premium-border group cursor-pointer" onclick="openGalleryModal(5)">
+                <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=800" alt="Screenshot 6" class="w-full h-auto object-cover transform transition duration-500 group-hover:scale-105 opacity-80 group-hover:opacity-100" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold font-mono">Screenshot 06</span>
+                        <h4 data-i18n="shot_06" class="text-sm font-bold text-white mt-1">Central Distribution Warehouse Node</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DOWNLOAD SECTION -->
+    <section id="download" class="py-24 px-4 bg-zinc-950/40 border-t border-zinc-900 relative">
+        <div class="max-w-4xl mx-auto premium-border bg-zinc-900/60 p-8 md:p-12 rounded-2xl shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 blur-[80px] rounded-full pointer-events-none"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <div class="md:col-span-2 space-y-4">
+                    <span data-i18n="dl_node" class="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 bg-zinc-800 text-emerald-400 border border-zinc-700/60 rounded">Prototype Deploy Node</span>
+                    <h3 data-i18n="dl_title" class="text-3xl md:text-4xl font-black uppercase tracking-tight">Download Prototype</h3>
+                    <p data-i18n="dl_msg" class="text-zinc-400 text-sm leading-relaxed max-w-lg">
+                        This prototype represents an early stage of development. New features and improvements will be added in future updates. Experience the foundational vehicle dynamics and delivery systems today.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-y-3 gap-x-6 text-xs border-t border-zinc-800 pt-4 font-medium text-zinc-400">
+                        <div class="flex justify-between border-b border-zinc-800/40 pb-1"><span data-i18n="spec_arch">Target Architecture:</span> <span class="text-white font-semibold">Windows (64-bit)</span></div>
+                        <div class="flex justify-between border-b border-zinc-800/40 pb-1"><span data-i18n="spec_eng">Core Engine:</span> <span class="text-white font-semibold">Unity</span></div>
+                        <div class="flex justify-between border-b border-zinc-800/40 pb-1"><span data-i18n="spec_ver">Target Build Matrix:</span> <span class="text-emerald-400 font-bold">0.1 Prototype</span></div>
+                        <div class="flex justify-between border-b border-zinc-800/40 pb-1"><span data-i18n="spec_stage">Deployment Stage:</span> <span class="text-blue-400 font-semibold" data-i18n="spec_stage_val">Pre-Alpha Tech</span></div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col space-y-3 w-full">
+                    <a href="#" class="w-full text-center px-6 py-3.5 bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-sm rounded-lg shadow-glow-emerald transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-desktop"></i>
+                        <span data-i18n="btn_download">Download Prototype</span>
+                    </a>
+                    <a href="#" class="w-full text-center px-6 py-3.5 bg-zinc-800 hover:bg-zinc-700 text-white font-semibold text-sm rounded-lg transition border border-zinc-700/60 flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-list-check"></i>
+                        <span data-i18n="btn_changelog">Prototype Changelog</span>
+                    </a>
+                    <button disabled class="w-full cursor-not-allowed opacity-50 px-6 py-3.5 bg-zinc-950 text-zinc-600 font-bold text-xs rounded-lg border border-zinc-900 flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-ban"></i>
+                        <span data-i18n="btn_steam_soon">Steam Coming Soon</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROADMAP SECTION -->
+    <section id="roadmap" class="py-24 px-4 bg-brand-darkbg relative">
+        <div class="max-w-4xl mx-auto relative">
+            <div class="text-center mb-20">
+                <h2 data-i18n="rm_sub" class="text-xs uppercase tracking-widest font-bold text-emerald-400 mb-2">Development Lifecycle</h2>
+                <h3 data-i18n="rm_title" class="text-3xl md:text-5xl font-black uppercase">Project Roadmap</h3>
+            </div>
+
+            <div class="absolute left-4 md:left-1/2 top-40 bottom-12 w-0.5 bg-gradient-to-b from-emerald-500 via-blue-500 to-zinc-800 -translate-x-1/2 hidden md:block"></div>
+
+            <div class="space-y-16 relative">
+                <!-- 2026 -->
+                <div class="roadmap-card flex flex-col md:flex-row items-start md:justify-between relative">
+                    <div class="absolute left-4 md:left-1/2 w-6 h-6 bg-emerald-500 rounded-full border-4 border-brand-darkbg -translate-x-1/2 shadow-glow-emerald z-10 hidden md:block"></div>
+                    <div class="md:w-[45%] pl-10 md:pl-0 md:text-right">
+                        <span class="inline-block px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-lg font-black tracking-widest rounded-md mb-2">🚀 2026</span>
+                        <h4 data-i18n="rm_2026_title" class="text-xl font-bold uppercase text-white tracking-wide">Startup Prototype</h4>
+                    </div>
+                    <div class="md:w-[45%] pl-10 md:pl-0 mt-2 md:mt-0">
+                        <ul id="rm_2026_list" class="space-y-2 text-sm text-zinc-400 bg-zinc-900/40 p-5 rounded-xl border border-zinc-800/80 backdrop-blur-sm">
+                            <!-- Populated Dynamically -->
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2027 -->
+                <div class="roadmap-card flex flex-col md:flex-row-reverse items-start md:justify-between relative">
+                    <div class="absolute left-4 md:left-1/2 w-6 h-6 bg-blue-500 rounded-full border-4 border-brand-darkbg -translate-x-1/2 shadow-glow-blue z-10 hidden md:block"></div>
+                    <div class="md:w-[45%] pl-10 md:pl-0 text-left">
+                        <span class="inline-block px-3 py-1 bg-blue-500/10 border border-blue-500/30 text-blue-400 text-lg font-black tracking-widest rounded-md mb-2">🧪 2027</span>
+                        <h4 data-i18n="rm_2027_title" class="text-xl font-bold uppercase text-white tracking-wide">Alpha & Beta</h4>
+                    </div>
+                    <div class="md:w-[45%] pl-10 md:pl-0 mt-2 md:mt-0">
+                        <ul id="rm_2027_list" class="space-y-2 text-sm text-zinc-400 bg-zinc-900/40 p-5 rounded-xl border border-zinc-800/80 backdrop-blur-sm">
+                            <!-- Populated Dynamically -->
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2028 -->
+                <div class="roadmap-card flex flex-col md:flex-row items-start md:justify-between relative">
+                    <div class="absolute left-4 md:left-1/2 w-6 h-6 bg-zinc-700 rounded-full border-4 border-brand-darkbg -translate-x-1/2 z-10 hidden md:block"></div>
+                    <div class="md:w-[45%] pl-10 md:pl-0 md:text-right">
+                        <span class="inline-block px-3 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-500 text-lg font-black tracking-widest rounded-md mb-2">🎉 2028</span>
+                        <h4 data-i18n="rm_2028_title" class="text-xl font-bold uppercase text-white tracking-wide">Full Release</h4>
+                    </div>
+                    <div class="md:w-[45%] pl-10 md:pl-0 mt-2 md:mt-0">
+                        <ul id="rm_2028_list" class="space-y-2 text-sm text-zinc-400 bg-zinc-900/40 p-5 rounded-xl border border-zinc-800/80 backdrop-blur-sm">
+                            <!-- Populated Dynamically -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-zinc-900 bg-brand-darkbg py-12 px-6 text-center text-xs text-zinc-600">
+        <div class="max-w-4xl mx-auto space-y-4">
+            <p data-i18n="footer_node" class="tracking-widest uppercase font-bold text-zinc-500">Book Express Simulator Engine Build Node</p>
+            <p data-i18n="footer_copy">&copy; 2026 Book Express Simulator. All rights reserved. Built for Windows Systems.</p>
+        </div>
+    </footer>
+
+    <!-- MEDIA MODAL (TRAILER & GALLERY HUD) -->
+    <div id="mediaModal" class="fixed inset-0 z-50 bg-black/95 hidden backdrop-blur-xl flex items-center justify-center p-4 transition-all duration-300 opacity-0" onclick="closeModal()">
+        <button class="absolute top-6 right-6 text-white text-3xl hover:text-emerald-400 transition" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+        <div class="max-w-5xl w-full max-h-[85vh] flex items-center justify-center" onclick="event.stopPropagation()">
+            <div id="modalTarget" class="w-full h-full flex justify-center items-center"></div>
+        </div>
+        <button id="modalPrev" class="absolute left-6 text-white text-4xl hidden hover:text-emerald-400 transition" onclick="navigateGallery(-1); event.stopPropagation();"><i class="fa-solid fa-chevron-left"></i></button>
+        <button id="modalNext" class="absolute right-6 text-white text-4xl hidden hover:text-emerald-400 transition" onclick="navigateGallery(1); event.stopPropagation();"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <!-- TRANSLATION MATRIX ENGINE -->
+    <script>
+        const translations = {
+            en: {
+                nav_home: "Home", nav_trailer: "Trailer", nav_screenshots: "Screenshots", nav_download: "Download", nav_roadmap: "Roadmap",
+                status_active: "Active Development",
+                hero_desc: "Step into the boots of a professional open-world courier. Manage complex delivery networks, deploy advanced navigation systems, and conquer the streets.",
+                btn_download: "Download Prototype", btn_trailer: "Watch Trailer", btn_steam: "Coming Soon on Steam", badge_tba: "Page TBA",
+                dash_status: "Current Status", dash_avail: "Build Availability", dash_avail_val: "Prototype Available", dash_market: "Marketplace", dash_market_val: "Steam — Coming Soon",
+                trailer_sub: "Cinematic Preview", trailer_title: "Watch the Trailer", trailer_btn_play: "Launch Trailer Presentation",
+                gallery_sub: "Visual Showcase", gallery_title: "In-Game Captions & Atmosphere",
+                shot_01: "Advanced Route Planning Tablet Interface", shot_02: "Smart GPS Navigation HUD System", shot_03: "High-Stakes Express Delivery Mechanics", shot_04: "Custom Fleet Configuration Screen", shot_05: "Open World City Infrastructure v0.1", shot_06: "Central Distribution Warehouse Node",
+                dl_node: "Prototype Deploy Node", dl_title: "Download Prototype", dl_msg: "This prototype represents an early stage of development. New features and improvements will be added in future updates. Experience the foundational vehicle dynamics and delivery systems today.",
+                spec_arch: "Target Architecture:", spec_eng: "Core Engine:", spec_ver: "Target Build Matrix:", spec_stage: "Deployment Stage:", spec_stage_val: "Pre-Alpha Tech",
+                btn_changelog: "Prototype Changelog", btn_steam_soon: "Steam Coming Soon",
+                rm_sub: "Development Lifecycle", rm_title: "Project Roadmap",
+                rm_2026_title: "Startup Prototype", rm_2027_title: "Alpha & Beta", rm_2028_title: "Full Release",
+                footer_node: "Book Express Simulator Engine Build Node", footer_copy: "© 2026 Book Express Simulator. All rights reserved. Built for Windows Systems.",
+                // Roadmap items arrays
+                rm_2026: ["First Playable Prototype", "Courier Core Gameplay", "Interactive Tablet System", "Smart GPS Navigation", "Book Pickup & Delivery", "Vehicle System", "Open World City (First Version)", "Public Prototype Release"],
+                rm_2027: ["Community Testing", "Gameplay Improvements", "Economy System", "Vehicle Upgrades", "Fuel System", "More Missions", "Multiplayer Prototype", "Steam Store Page Launch"],
+                rm_2028: ["Official Steam Release", "Complete Open World", "Multiplayer", "Career Mode", "Companies & Contracts", "AI Traffic Improvements", "Achievements", "Regular Content Updates"]
+            },
+            uz: {
+                nav_home: "Bosh sahifa", nav_trailer: "Treyler", nav_screenshots: "Skrinshotlar", nav_download: "Yuklab olish", nav_roadmap: "Yo'l xaritasi",
+                status_active: "Aktiv Rivojlanishda",
+                hero_desc: "Ochiq dunyodagi professional kuryer roliga kiring. Murakkab yetkazib berish tarmoqlarini boshqaring, ilg'or navigatsiya tizimlaridan foydalaning va ko'chalarni zabt eting.",
+                btn_download: "Prototipni Yuklash", btn_trailer: "Treylerni Ko'rish", btn_steam: "Tez Kunda Steam'da", badge_tba: "Sahifa tezda",
+                dash_status: "Hozirgi Holat", dash_avail: "Versiya Mavjudligi", dash_avail_val: "Prototip Mavjud", dash_market: "Savdo Maydoni", dash_market_val: "Steam — Tez Kunda",
+                trailer_sub: "Kinematik Preview", trailer_title: "Treylerni Tomosha Qiling", trailer_btn_play: "Treyler Taqdimotini Boshlash",
+                gallery_sub: "Vizual Galereya", gallery_title: "O'yin Ichidagi Atmosfera",
+                shot_01: "Yo'nalishni Rejalashtirish Planshet Interfeysi", shot_02: "Aqlli GPS Navigatsiya HUD Tizimi", shot_03: "Yuqori Tezlikdagi Ekspress Yetkazib Berish", shot_04: "Shaxsiy Avtoparkni Sozlash Ekrani", shot_05: "Ochiq Dunyo Shahar Infratuzilmasi v0.1", shot_06: "Markaziy Tarqatish Ombori Nodi",
+                dl_node: "Prototipni Joylashtirish Tizimi", dl_title: "Prototipni Yuklab Olish", dl_msg: "Ushbu prototip rivojlanishning dastlabki bosqichini anglatadi. Kelgusi yangilanishlarda yangi funksiyalar va yaxshilanishlar qo'shiladi. Avtomobil dinamikasi va yetkazib berish tizimini hoziroq sinab ko'ring.",
+                spec_arch: "Maqsadli Arxitektura:", spec_eng: "Asosiy Dvigatel:", spec_ver: "Maqsadli Build Matritsasi:", spec_stage: "Joylashtirish Bosqichi:", spec_stage_val: "Pre-Alfa Texnologiya",
+                btn_changelog: "Prototip O'zgarishlari", btn_steam_soon: "Steam Tez Kunda",
+                rm_sub: "Rivojlanish Bosqichlari", rm_title: "Loyiha Yo'l Xaritasi",
+                rm_2026_title: "Boshlang'ich Prototip", rm_2027_title: "Alfa va Beta", rm_2028_title: "To'liq Reliz",
+                footer_node: "Book Express Simulator Dvigatel Nodi", footer_copy: "© 2026 Book Express Simulator. Barcha huquqlar himoyalangan. Windows tizimlari uchun mo'ljallangan.",
+                rm_2026: ["Birinchi playable prototip", "Kuryerlik asosiy o'yin jarayoni", "Interaktiv planshet tizimi", "Aqlli GPS navigatsiyasi", "Kitoblarni olish va yetkazish", "Avtomobil boshqaruv tizimi", "Ochiq dunyo shahar (Ilk versiya)", "Ommaviy prototip relizi"],
+                rm_2027: ["Kommunitiv test sinovlari", "Geympley yaxshilanishlari", "Iqtisodiyot tizimi", "Avtomashinalarni yangilash", "Yoqilg'i tizimi", "Ko'proq missiyalar", "Ko'p foydalanuvchili prototip", "Steam do'kon sahifasi ishga tushishi"],
+                rm_2028: ["Rasmiy Steam Relizi", "To'liq ochiq dunyo", "Multiplayer", "Karyera rejimi", "Kompaniyalar va kontraktlar", "AI trafikni yaxshilash", "Yutuqlar (Achievements)", "Doimiy kontent yangilanishlari"]
+            },
+            ru: {
+                nav_home: "Главная", nav_trailer: "Трейлер", nav_screenshots: "Скриншоты", nav_download: "Скачать", nav_roadmap: "Дорожная карта",
+                status_active: "В активной разработке",
+                hero_desc: "Станьте профессиональным курьером в открытом мире. Управляйте сложными сетями доставки, внедряйте передовые системы навигации и покоряйте улицы.",
+                btn_download: "Скачать Прототип", btn_trailer: "Смотреть Трейлер", btn_steam: "Скоро в Steam", badge_tba: "Страница анонса",
+                dash_status: "Текущий Статус", dash_avail: "Доступность Сборки", dash_avail_val: "Прототип Доступен", dash_market: "Маркетплейс", dash_market_val: "Steam — Скоро",
+                trailer_sub: "Кинематографичный Анонс", trailer_title: "Смотреть Трейлер", trailer_btn_play: "Запустить презентацию трейлера",
+                gallery_sub: "Визуальная Галерея", gallery_title: "Внутриигровая Атмосфера",
+                shot_01: "Продвинутый интерфейс планшета маршрутизации", shot_02: "Система HUD умной GPS-навигации", shot_03: "Механика высокоскоростной экспресс-доставки", shot_04: "Экран настройки личного автопарка", shot_05: "Инфраструктура открытого города v0.1", shot_06: "Узел центрального распределительного склада",
+                dl_node: "Узел Развертывания Прототипа", dl_title: "Скачать Прототип", dl_msg: "Этот прототип представляет собой раннюю стадию разработки. Новые функции и улучшения будут добавлены в будущих обновлениях. Испытайте базовую динамику автомобиля и систему доставки уже сегодня.",
+                spec_arch: "Целевая Архитектура:", spec_eng: "Основной Движок:", spec_ver: "Матрица Сборки:", spec_stage: "Стадия Развертывания:", spec_stage_val: "Пре-Альфа Технологии",
+                btn_changelog: "Чейнджлог Прототипа", btn_steam_soon: "Steam Скоро",
+                rm_sub: "Цикл Разработки", rm_title: "Дорожная Карта Проекта",
+                rm_2026_title: "Стартап Прототип", rm_2027_title: "Альфа и Бета", rm_2028_title: "Полный Релиз",
+                footer_node: "Узел Движка Book Express Simulator", footer_copy: "© 2026 Book Express Simulator. Все права защищены. Разработано для систем Windows.",
+                rm_2026: ["Первый играбельный прототип", "Основной игровой процесс курьера", "Интерактивная система планшета", "Умная GPS-навигация", "Пикап и доставка книг", "Система транспортных средств", "Открытый мир города (Первая версия)", "Публичный релиз прототипа"],
+                rm_2027: ["Тестирование сообществом", "Улучшения игрового процесса", "Экономическая система", "Модернизация транспорта", "Топливная система", "Больше миссий", "Мультиплеерный прототип", "Запуск страницы в магазине Steam"],
+                rm_2028: ["Официальный релиз в Steam", "Полный открытый мир", "Мультиплеер", "Режим карьеры", "Компании и контракты", "Улучшение ИИ трафика", "Достижения", "Регулярные обновления контента"]
+            }
+        };
+
+        function updateLanguage(lang) {
+            const wrapper = document.getElementById('hero-content');
+            if(wrapper) wrapper.style.opacity = 0;
+
+            setTimeout(() => {
+                // Core elements translation processing
+                document.querySelectorAll('[data-i18n]').forEach(element => {
+                    const key = element.getAttribute('data-i18n');
+                    if (translations[lang][key]) {
+                        element.innerText = translations[lang][key];
+                    }
+                });
+
+                // Render lists dynamically for Roadmap
+                renderRoadmapList('rm_2026_list', translations[lang].rm_2026, 'emerald');
+                renderRoadmapList('rm_2027_list', translations[lang].rm_2027, 'blue');
+                renderRoadmapList('rm_2028_list', translations[lang].rm_2028, 'amber');
+
+                if(wrapper) wrapper.style.opacity = 1;
+            }, 200);
+        }
+
+        function renderRoadmapList(elementId, itemsArray, colorClass) {
+            const listContainer = document.getElementById(elementId);
+            if (!listContainer) return;
+            
+            let textIconColor = colorClass === 'emerald' ? 'text-emerald-400' : (colorClass === 'blue' ? 'text-blue-400' : 'text-amber-400');
+            let iconShape = colorClass === 'emerald' ? 'fa-circle-check' : (colorClass === 'blue' ? 'fa-sliders' : 'fa-trophy');
+
+            listContainer.innerHTML = itemsArray.map(item => `
+                <li class="flex items-center space-x-2">
+                    <i class="fa-solid ${iconShape} ${textIconColor} text-xs"></i>
+                    <span>${item}</span>
+                </li>
+            `).join('');
+        }
+
+        document.getElementById('langSelector').addEventListener('change', (e) => {
+            updateLanguage(e.target.value);
+        });
+
+        // Initialize with English layout standard values
+        updateLanguage('en');
+    </script>
+
+    <!-- UI/UX ENGINE ACTIONS & ANIMATIONS -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger);
+            
+            gsap.from("#hero h1", { duration: 1, y: 40, opacity: 0, ease: "power4.out" });
+            gsap.from("#hero p", { duration: 1.2, y: 30, opacity: 0, ease: "power4.out", delay: 0.2 });
+            
+            gsap.utils.toArray(".roadmap-card").forEach((card) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    },
+                    opacity: 0,
+                    y: 50,
+                    duration: 0.8,
+                    ease: "power3.out"
+                });
+            });
+        });
+
+        // Gallery Dynamic Data
+        const items = [
+            { src: "https://images.unsplash.com/photo-1614624532983-4ce03382d63d?q=80&w=800", i18nKey: "shot_01" },
+            { src: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800", i18nKey: "shot_02" },
+            { src: "https://images.unsplash.com/photo-1553481187-be93c21490a9?q=80&w=800", i18nKey: "shot_03" },
+            { src: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=800", i18nKey: "shot_04" },
+            { src: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800", i18nKey: "shot_05" },
+            { src: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=800", i18nKey: "shot_06" }
+        ];
+        let currentGalleryIndex = 0;
+
+        function openTrailerModal() {
+            const container = document.getElementById('modalTarget');
+            container.innerHTML = `
+                <div class="w-full aspect-video border border-zinc-800 rounded-lg overflow-hidden shadow-2xl">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" title="Trailer Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>`;
+            displayModal(false);
+        }
+
+        function openGalleryModal(index) {
+            currentGalleryIndex = index;
+            renderGalleryItem();
+            displayModal(true);
+        }
+
+        function renderGalleryItem() {
+            const container = document.getElementById('modalTarget');
+            const currentLang = document.getElementById('langSelector').value;
+            const data = items[currentGalleryIndex];
+            const captionText = translations[currentLang][data.i18nKey];
+
+            container.innerHTML = `
+                <div class="flex flex-col items-center space-y-4 max-w-full">
+                    <img src="${data.src}" alt="Screenshot" class="max-w-full max-h-[75vh] object-contain rounded-lg border border-zinc-800 shadow-2xl">
+                    <p class="text-zinc-400 font-medium text-sm text-center px-4">${captionText}</p>
+                </div>`;
+        }
+
+        function navigateGallery(direction) {
+            currentGalleryIndex = (currentGalleryIndex + direction + items.length) % items.length;
+            renderGalleryItem();
+        }
+
+        function displayModal(showNav) {
+            const modal = document.getElementById('mediaModal');
+            document.getElementById('modalPrev').style.display = showNav ? 'block' : 'none';
+            document.getElementById('modalNext').style.display = showNav ? 'block' : 'none';
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.classList.remove('opacity-0'), 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('mediaModal');
+            modal.classList.add('opacity-0');
+            document.getElementById('modalTarget').innerHTML = '';
+            setTimeout(() => modal.classList.add('hidden'), 300);
+            document.body.style.overflow = 'auto';
+        }
+
+        window.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('mediaModal');
+            if (modal.classList.contains('hidden')) return;
+            if (e.key === 'Escape') closeModal();
+            if (e.key === 'ArrowLeft') navigateGallery(-1);
+            if (e.key === 'ArrowRight') navigateGallery(1);
+        });
+    </script>
+</body>
+</html>
