@@ -511,13 +511,13 @@
         let currentGalleryIndex = 0;
 
         function openTrailerModal() {
-            const container = document.getElementById('modalTarget');
-            container.innerHTML = `
-                <div class="w-full aspect-video border border-zinc-800 rounded-lg overflow-hidden shadow-2xl">
-                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" title="Trailer Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </div>`;
-            displayModal(false);
-        }
+        const container = document.getElementById('modalTarget');
+        container.innerHTML = `
+            <div class="w-full aspect-video border border-zinc-800 rounded-lg overflow-hidden shadow-2xl">
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/NeHMbv1eFpc?autoplay=1" title="Book Express Simulator Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>`;
+        displayModal(false);
+    }
 
         function openGalleryModal(index) {
             currentGalleryIndex = index;
